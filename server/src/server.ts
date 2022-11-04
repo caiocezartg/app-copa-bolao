@@ -3,9 +3,11 @@ import { PrismaClient } from "@prisma/client";
 import ShortUniqueId from "short-unique-id";
 import validate from "./middlewares/validateMiddleware";
 import poolSchema from "./validations/poolValidation";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const prisma = new PrismaClient({
   log: ["query"],
