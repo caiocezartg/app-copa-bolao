@@ -1,8 +1,9 @@
 import * as yup from "yup";
 
 const poolSchema = yup.object({
-  title: yup.string().strict().required(),
-  code: yup.string().strict(),
+  body: yup.object({
+    title: yup.string().required("Title is a required field.").strict(),
+  }),
 });
 
 export default poolSchema;
