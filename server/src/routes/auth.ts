@@ -51,6 +51,7 @@ router.post("/users", validate(authSchema), async (req, res) => {
     "jwtsecretplaceholder",
     {
       expiresIn: "7 days",
+      subject: user.id,
     }
   );
 

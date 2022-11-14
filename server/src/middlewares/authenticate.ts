@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+interface dataDecodedProps {
+  name: string;
+  avatarUrl: string;
+  sub: string;
+  iat: number;
+  exp: number;
+}
+
 const authenticate = async (
   req: Request,
   res: Response,
@@ -14,8 +22,15 @@ const authenticate = async (
   }
 
   try {
-    const data = jwt.verify(jwtToken, "jwtsecretplaceholder");
-    req.userData = data;
+    const dataDecoded = jwt.verify(jwtToken, "jwtsecretplaceholder");
+    const { name, avatarUrl, sub, iat, exp } = dataDecoded as dataDecodedProps;
+    req.userData = {
+      name,
+      avatarUrl,
+      sub,
+      iat,
+      exp,
+    };
     return next();
   } catch (error) {
     return res.status(400).json({ error });

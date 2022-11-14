@@ -17,7 +17,7 @@ datasource db {
 model Pools {
   id        String   @id @default(uuid())
   title     String
-  code      String
+  code      String   @unique
   createdAt DateTime @default(now())
   ownerId   String?
 
@@ -68,4 +68,6 @@ model Guess {
 
   participant Participant @relation(fields: [participantId], references: [id])
   game        Game        @relation(fields: [gameId], references: [id])
+
+  @@unique([participantId, gameId])
 }
